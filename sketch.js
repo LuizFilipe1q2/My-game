@@ -13,7 +13,7 @@ var Alvo9
 var Alvo10
 var Barreira
 var Barreira2
-var score = 0
+var gameState = 0
 
 
 function setup() {
@@ -48,15 +48,19 @@ function setup() {
 
 function draw() {
   background("black");
-  fill('white')
-  textSize(30)
-  text('score:  ' + score, 240, 800)
-  if (keyDown('space')) {
 
-    bola.velocityX = 8;
-    bola.velocityY = 8;
+  if (gameState===0) {
+
+    if (keyDown('space')) {
+
+    mover();
+    }
+    gameState = 1
 
   }
+
+  if(gameState===1) {
+
   bola.shapeColor = 'white';
   //  bola2.shapeColor = 'white';
   Jogador.shapeColor = 'white';
@@ -146,6 +150,34 @@ function draw() {
     bola.bounceOff(Alvo10);
     //bola2.bounceOff(Alvo10);
   }
+
+   else if (gameState===1&&bola.y>990) {
+
+      gameState = 2;
+
+   }
+ }
+
+  else if (gameState===2) {
+
+     fill('white')
+     textSize(50)
+     text('VOCÊ PERDEU!', 320, 400)
+
+     bola.destroy();
+
+  }
+
   drawSprites();
 }
 
+function mover () {
+
+  //if (keyDown('space')) {
+
+    bola.velocityX = 8;
+    bola.velocityY = 8;
+
+  //}
+
+}
